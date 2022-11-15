@@ -1,13 +1,157 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+html {
+  font-size: 62.5%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  font-family: "Roboto";
+}
+body * {
+  box-sizing: border-box;
+}
+body *::after, body *::before {
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.calc-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  --bg-color: #75DAFF;
+  --calc-bg-color: rgba(255,255,255,0.2);
+  --calc-box-shadow: rgba(0,0,0,0.1);
+  --calc-display: white;
+  --cell-hover: rgba(255,255,255,0.7);
+  --cell-color: black;
+  --cell-special-bg: rgba(255,255,255,0.3);
+  --swith-bg: rgba(0,0,0,0.5);
+  background-color: var(--bg-color);
+  transition: background-color 0.3s;
+}
+.calc-wrapper.dark {
+  --bg-color: #383c4a;
+  --calc-bg-color: rgba(0,0,0,0.2);
+  --calc-box-shadow: rgba(255,255,255,0.1);
+  --calc-display: rgba(255,255,255,0.3);
+  --cell-hover: rgba(0,0,0,0.2);
+  --cell-color: white;
+  --cell-special-bg: rgba(0,0,0,0.3);
+  --swith-bg: rgba(255,255,255,0.5);
+}
+.calc-wrapper #calc {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 2fr repeat(5, 1fr);
+  height: 60vmin;
+  width: 37.5vmin;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%);
+  position: relative;
+  background-color: var(--calc-bg-color);
+  box-shadow: 0 0 3vmin 0 var(--calc-box-shadow);
+  font-size: 3vmin;
+  transition: box-shadow 0.3s;
+}
+.calc-wrapper #calc:hover {
+  box-shadow: 0 0 6vmin 0 var(--calc-box-shadow);
+}
+.calc-wrapper #calc .display {
+  grid-column: 1/5;
+  background-color: var(--calc-display);
+  padding: 0 2vmin;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 6.5vmin;
+  text-overflow: ellipse;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+}
+.calc-wrapper #calc .display .top-line {
+  font-size: 3vmin;
+  margin-bottom: 1vmin;
+}
+.calc-wrapper #calc .display .results {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: right;
+}
+.calc-wrapper #calc .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s;
+  cursor: pointer;
+  color: var(--cell-color);
+}
+.calc-wrapper #calc .cell:hover {
+  background-color: var(--cell-hover);
+}
+.calc-wrapper #calc .cell:nth-child(3) {
+  grid-column: 2/4;
+}
+/* .calc-wrapper #calc .cell:nth-child(17) {
+  grid-column: 1/3;
+} */
+.calc-wrapper #calc .cell:nth-child(4), .calc-wrapper #calc .cell:nth-child(8), .calc-wrapper #calc .cell:nth-child(12), .calc-wrapper #calc .cell:nth-child(16), .calc-wrapper #calc .cell:nth-child(20) {
+  background-color: var(--cell-special-bg);
+}
+.calc-wrapper #switch {
+  position: fixed;
+  height: 7vmin;
+  width: 6vmin;
+  background-color: var(--swith-bg);
+  border-radius: 1vmin;
+  right: 2vmin;
+  top: 2vmin;
+  cursor: pointer;
+  padding: 0.5vmin;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+}
+.calc-wrapper #switch:hover {
+  opacity: 1;
+}
+.calc-wrapper #switch svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--bg-color);
+}
+
+#by {
+  position: fixed;
+  bottom: 0;
+  left: 10vw;
+  width: 80vw;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border-top: 0.1vmin dashed rgba(0, 0, 0, 0.3);
+  padding: 1vmin 0;
+  font-size: 1.5vmin;
+  color: var(--cell-color);
+}
+#by span {
+  text-transform: uppercase;
+}
+#by a {
+  margin: 0 1vmin;
+  font-weight: bold;
+}
+#by a:visited {
+  color: var(--cell-color);
 }
